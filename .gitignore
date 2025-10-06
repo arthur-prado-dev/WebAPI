@@ -1,0 +1,36 @@
+"# Ignore build artifacts" 
+
+# Compiled files
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+
+# Rider
+.idea/
+
+# Others
+*.log
+*.vspscc
+*.vssscc
+*.dbmdl
+*.bak
+*.backup
+*.cache
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
