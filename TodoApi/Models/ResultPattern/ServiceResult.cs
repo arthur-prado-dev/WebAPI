@@ -13,9 +13,9 @@ public class ServiceResult<T>
         Data = data;
     }
 
-    public ServiceResult<T> Ok(T data, string message)
+    public static ServiceResult<T> Ok(T data, string message)
         => new(true, message, data);
 
-    public ServiceResult<T> Fail(string message)
+    public static ServiceResult<T> Fail(string message)
         => new(false, message);
 }
