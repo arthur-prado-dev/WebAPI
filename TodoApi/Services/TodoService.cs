@@ -1,5 +1,6 @@
 ﻿using TodoApi.Interfaces;
 using TodoApi.Models;
+using TodoApi.Models.Requests;
 using TodoApi.Models.ResultPattern;
 
 namespace TodoApi.Services;
@@ -13,5 +14,25 @@ public class TodoService (List<Todo> todoList): ITodoService
         return todoList.Count != 0
             ? ServiceResult<List<Todo>>.Ok(todoList, "Itens carregados com sucesso.")
             : ServiceResult<List<Todo>>.Fail("Não há itens a serem carregados.");
+    }
+
+    public ServiceResult<Todo> GetById(int id)
+    {
+        var todoById = todoList.FirstOrDefault(t => t.Id == id);
+
+        return todoById is not null
+            ? ServiceResult<Todo>.Ok(todoById, "Item encontrado com sucesso.")
+            : ServiceResult<Todo>.Fail("Não há um item com esse id.");
+    }
+
+    public ServiceResult<Todo> Create(TodoRequest request)
+    {
+        lock (_lock)
+        {
+            var createdTodo = new Todo(request.Title, request.Done);
+            todoList.Add(createdTodo);
+
+            return ServiceResult<Todo>.Ok(createdTodo, "Item adicionado com sucesso.");
+        }
     }
 }
