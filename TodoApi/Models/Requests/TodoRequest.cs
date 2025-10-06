@@ -8,4 +8,4 @@ public record TodoRequest(
     string Title, 
     [Required(ErrorMessage = "É necessário dizer se a tarefa foi concluída.")]
     bool Done
-    );
+);

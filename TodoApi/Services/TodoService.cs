@@ -1,4 +1,6 @@
-﻿using TodoApi.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
+using TodoApi.Interfaces;
 using TodoApi.Models;
 using TodoApi.Models.Requests;
 using TodoApi.Models.ResultPattern;
@@ -33,6 +35,20 @@ public class TodoService (List<Todo> todoList): ITodoService
             todoList.Add(createdTodo);
 
             return ServiceResult<Todo>.Ok(createdTodo, "Item adicionado com sucesso.");
+        }
+    }
+
+    public ServiceResult<Todo> Update(int id, TodoRequest request)
+    {
+        lock (_lock)
+        {
+            var todoToUpdate = todoList.FirstOrDefault(t => t.Id == id);
+
+            todoToUpdate?.TryUpdate(request);
+
+            return todoToUpdate is not null
+                ? ServiceResult<Todo>.Ok(todoToUpdate, "Item Alterado com sucesso")
+                : ServiceResult<Todo>.Fail("Não há item com este id para ser alterado");
         }
     }
 }

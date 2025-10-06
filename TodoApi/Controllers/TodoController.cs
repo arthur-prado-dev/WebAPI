@@ -41,4 +41,15 @@ public class TodoController(ITodoService service) : ControllerBase
             ? CreatedAtAction(nameof(GetById), new { Id = result.Data!.Id }, result.Data)
             : BadRequest("Ocorreu um erro ao criar sua tarefa, tente novamente.");
     }
+
+    [HttpPatch]
+    [Route("Update/{id}")]
+    public IActionResult Update([FromRoute] int id, [FromBody] TodoRequest request)
+    {
+        var result = service.Update(id, request);
+
+        return result.Success
+            ? Ok(TodoResponse.FromEntity(result.Data!))
+            : BadRequest(result.Message);
+    }
 }

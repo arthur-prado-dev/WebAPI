@@ -10,4 +10,5 @@ public interface ITodoService
     ServiceResult<List<Todo>> GetAll();
     ServiceResult<Todo> GetById(int id);
     ServiceResult<Todo> Create(TodoRequest request);
+    ServiceResult<Todo> Update(int id, TodoRequest request);
 }

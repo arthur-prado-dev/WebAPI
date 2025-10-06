@@ -1,4 +1,6 @@
-﻿namespace TodoApi.Models;
+﻿using TodoApi.Models.Requests;
+
+namespace TodoApi.Models;
 
 public class Todo
 {
@@ -25,5 +27,13 @@ public class Todo
     public bool IsNotValid()
     {
         return !IsValid();
+    }
+
+    public Todo TryUpdate(TodoRequest request)
+    {
+        Title = request.Title;
+        Done = request.Done;
+
+        return this;
     }
 }
