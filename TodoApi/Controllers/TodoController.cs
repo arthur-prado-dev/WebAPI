@@ -52,4 +52,15 @@ public class TodoController(ITodoService service) : ControllerBase
             ? Ok(TodoResponse.FromEntity(result.Data!))
             : BadRequest(result.Message);
     }
+
+    [HttpDelete]
+    [Route("Delete/{id}")]
+    public IActionResult Delete([FromRoute] int id)
+    {
+        var result = service.Delete(id);
+
+        return result.Success
+            ? NoContent()
+            : NotFound(result.Message);
+    }
 }

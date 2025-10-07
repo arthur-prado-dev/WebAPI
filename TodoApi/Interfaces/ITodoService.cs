@@ -11,4 +11,5 @@ public interface ITodoService
     ServiceResult<Todo> GetById(int id);
     ServiceResult<Todo> Create(TodoRequest request);
     ServiceResult<Todo> Update(int id, TodoRequest request);
+    ServiceResult Delete(int id);
 }

@@ -51,4 +51,15 @@ public class TodoService (List<Todo> todoList): ITodoService
                 : ServiceResult<Todo>.Fail("Não há item com este id para ser alterado");
         }
     }
+
+    public ServiceResult Delete(int id)
+    {
+        if (!todoList.Exists(t => t.Id == id))
+            return ServiceResult.Fail("Não Existe um item com este Id."); 
+                
+        lock (_lock)
+            todoList.RemoveAll(t => t.Id == id);
+        
+        return ServiceResult.Ok();
+    }
 }
